@@ -10,9 +10,9 @@ pipeline {
 
     stages {
 
-        stage('DEV') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Building...'
+                echo 'Installing dependencies...'
                 sh 'npm install --no-audit'
             }
         }
@@ -74,6 +74,12 @@ pipeline {
                 always {
                     junit allowEmptyResults: true, testResults: 'dastardly-report.xml', skipPublishingChecks: true
                 }
+            }
+        }
+
+        stage('DEV') {
+            steps {
+                echo 'Building...'
             }
         }
 
