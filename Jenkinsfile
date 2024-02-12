@@ -24,14 +24,15 @@ pipeline {
                 -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
                 -v "$(pwd):$(pwd)" --workdir $(pwd) \
                 returntocorp/semgrep semgrep ci '''
-                sh 'exit 0'
+                sh 'exit 0' //continue build otherwise use delete exit code
             }
-            post {
+            
+        }
+        post {
                 always {
                     junit allowEmptyResults: true, testResults: 'semgrep-report.xml', skipPublishingChecks: true
                 }
             }
-        }
     
         stage('Snyk') {
             steps {
@@ -42,7 +43,7 @@ pipeline {
                     severity: 'low',
                     failOnIssues: 'false'
                 )
-                sh 'exit 0' 
+                
             }
         }
         
