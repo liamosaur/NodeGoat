@@ -55,15 +55,15 @@ pipeline {
                     '''
                     sh 'exit 0'
                 
-                // echo 'Dastardly Scanning Completed.'
-                // echo 'Upload Dastardly Scan to DefectDojo'
-                // steps {
-                //     sh '''
-                //     upload-results.py --host $DOJO_HOST --api_key $DOJO_API_TOKEN \
-                //     --engagement_id 1 --product_id 1 --lead_id 1 --environment "Production" \
-                 //     --result_file dastardly-report.xml --scanner "Snyk Scan"
-                //     '''
-                // }
+                echo 'Dastardly Scanning Completed.'
+                echo 'Upload Dastardly Scan to DefectDojo'
+                steps {
+                    sh '''
+                    upload-results.py --host $DOJO_HOST --api_key $DOJO_API_TOKEN \
+                    --engagement_id 1 --product_id 1 --lead_id 1 --environment "Production" \
+                     --result_file dastardly-report.xml --scanner "Snyk Scan"
+                    '''
+                }
             }
             post {
                 always {
