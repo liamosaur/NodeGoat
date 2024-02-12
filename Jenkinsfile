@@ -40,6 +40,13 @@ pipeline {
                 
             }
         }
+
+         stage('DEV') {
+            steps {
+                echo 'Building...'
+                echo 'DEV WAS SUCCESSFUL!!!'
+            }
+        }
         
 
         stage('Dastadrly Scan...') {
@@ -72,12 +79,7 @@ pipeline {
             }
         }
 
-        stage('DEV') {
-            steps {
-                echo 'Building...'
-            }
-        }
-
+       
         stage('PROD') {
             steps {
                 echo 'Deploying....'
