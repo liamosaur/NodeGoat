@@ -18,16 +18,16 @@ pipeline {
             }
         }
 
-        // stage('Semgrep-Scan') {
-        //     steps {
-        //         sh '''docker pull returntocorp/semgrep && \
-        //         docker run \
-        //         -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
-        //         -v "$(pwd):$(pwd)" --workdir $(pwd) \
-        //         returntocorp/semgrep semgrep ci '''
-        //         sh 'exit 0' //continue build otherwise use delete exit code
-        //     }
-        // }
+        stage('Semgrep-Scan') {
+            steps {
+                sh '''docker pull returntocorp/semgrep && \
+                docker run \
+                -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
+                -v "$(pwd):$(pwd)" --workdir $(pwd) \
+                returntocorp/semgrep semgrep ci '''
+                sh 'exit 0' //continue build otherwise use delete exit code
+            }
+        }
     
         // stage('Snyk') {
         //     steps {
