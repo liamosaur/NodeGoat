@@ -29,18 +29,18 @@ pipeline {
             }
         }
     
-        // stage('Snyk') {
-        //     steps {
-        //         echo 'Snyk Scanning...'
-        //         snykSecurity(
-        //             snykInstallation: 'Snyk-Scan',
-        //             snykTokenId: 'Snyk-Scan',
-        //             severity: 'low',
-        //             failOnIssues: 'false'
-        //         )
+        stage('Snyk') {
+            steps {
+                echo 'Snyk Scanning...'
+                snykSecurity(
+                    snykInstallation: 'Snyk-Scan',
+                    snykTokenId: 'Snyk-Scan',
+                    severity: 'low',
+                    failOnIssues: 'false'
+                )
                 
-        //     }
-        // }
+            }
+        }
 
          stage('DEV') {
             steps {
