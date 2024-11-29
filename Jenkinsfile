@@ -18,37 +18,16 @@ pipeline {
             }
         }
 
-        
-  pipeline {
-    agent any
-  environment {
-      // SEMGREP_BASELINE_REF = ""
-
-        SEMGREP_APP_TOKEN = credentials('SEMGREP_APP_TOKEN')
-        SEMGREP_PR_ID = "${env.CHANGE_ID}"
-
-      //  SEMGREP_TIMEOUT = "300"
-    }
-    stages {
-      stage('Semgrep-Scan') {
-          steps {
-            sh 'pip3 install semgrep'
-            sh 'semgrep ci'
-          }
-      }
-    }
-  }
-
-        // stage('Semgrep-Scan') {
-        //     steps {
-        //         sh '''docker pull returntocorp/semgrep && \
-        //         docker run \
-        //         -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
-        //         -v "$(pwd):$(pwd)" --workdir $(pwd) \
-        //         returntocorp/semgrep semgrep ci '''
-        //         sh 'exit 0' //continue build otherwise use delete exit code
-        //     }
-        // }
+        stage('Semgrep-Scan') {
+            steps {
+                sh '''docker pull returntocorp/semgrep && \
+                docker run \
+                -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
+                -v "$(pwd):$(pwd)" --workdir $(pwd) \
+                returntocorp/semgrep semgrep ci '''
+                sh 'exit 0' //continue build otherwise use delete exit code
+            }
+        }
     
         // stage('Snyk') {
         //     steps {
