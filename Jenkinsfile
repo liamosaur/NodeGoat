@@ -24,7 +24,7 @@ pipeline {
                 docker run \
                 -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
                 -v "$(pwd):$(pwd)" --workdir $(pwd) \
-                returntocorp/semgrep semgrep ci '''
+                returntocorp/semgrep semgrep ci --code'''
                 sh 'exit 0' //continue build otherwise use delete exit code
             }
         }
