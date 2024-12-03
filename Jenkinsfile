@@ -53,7 +53,7 @@ pipeline {
         stage('Dastadrly Scan...') {
             steps {
                 echo 'Starting Mongo DB...'
-                    sh 'docker run --publish 27017:27017 mongo:4.4'
+                    sh 'docker run --rm --detach --network jenkins --publish 27017:27017 mongo:4.4'
                 echo 'Starting dev server...'
                     sh 'npm start'
                 echo 'Dastardly Scanning...'
