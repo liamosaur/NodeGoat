@@ -52,16 +52,12 @@ pipeline {
 
         stage('Dastadrly Scan...') {
             steps {
-                echo 'Starting Mongo DB...'
-                    sh 'docker run --publish 27017:27017 mongo:4.4'
-                echo 'Starting dev server...'
-                    sh 'npm start'
-                echo 'Dastardly Scanning...'
+                echo 'Dastardly Scanning..'
                     sh 'docker pull public.ecr.aws/portswigger/dastardly:latest'
                     cleanWs()
                     sh '''
                     docker run --user $(id -u) -v ${WORKSPACE}:${WORKSPACE}:rw \
-                    -e BURP_START_URL=http://localhost:4000 \
+                    -e BURP_START_URL=https://juice-shop.herokuapp.com \
                     -e BURP_REPORT_FILE_PATH=${WORKSPACE}/dastardly-report.xml \
                     public.ecr.aws/portswigger/dastardly:latest \
                     '''
