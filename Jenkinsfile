@@ -24,10 +24,16 @@ pipeline {
                 docker run \
                 -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
                 -v "$(pwd):$(pwd)" --workdir $(pwd) \
-                returntocorp/semgrep semgrep ci --code'''
+                returntocorp/semgrep semgrep ci --code --junit-xml-output semgrep-report.xml'''
                 sh 'exit 0' //continue build otherwise use delete exit code
             }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'semgrep-report.xml', skipPublishingChecks: true
+                }
+            }
         }
+    
     
         stage('Snyk Scan') {
             steps {
@@ -50,7 +56,7 @@ pipeline {
         }
         
 
-       stage('Dastadrly Scan') {
+       stage('Dastardly Scan') {
             steps {
                 echo 'Launch app...'
                     sh 'docker-compose up --detach'
@@ -84,7 +90,7 @@ pipeline {
         stage('Deploy to PROD') {
             steps {
                 echo 'Deploying...'
-                echo 'DEPLOY TO DEV WAS SUCCESSFUL!!!'
+                echo 'DEPLOY TO PROD WAS SUCCESSFUL!!!'
             }
         }
 
