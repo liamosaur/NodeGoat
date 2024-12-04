@@ -20,7 +20,7 @@ pipeline {
 
         stage('Semgrep-Scan') {
             steps {
-                sh '''docker pull returntocorp/semgrep && \
+                sh '''
                 docker run \
                 -e SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN \
                 -v "$(pwd):$(pwd)" --workdir $(pwd) \
@@ -55,8 +55,6 @@ pipeline {
                 echo 'Launch app...'
                     sh 'docker-compose up --detach'
                 echo 'Dastardly Scanning...'
-                    sh 'docker pull public.ecr.aws/portswigger/dastardly:latest'
-                    cleanWs()
                     sh '''
                     docker run --network host --user $(id -u) -v ${WORKSPACE}:${WORKSPACE}:rw \
                     -e BURP_START_URL=http://localhost:4000 \
