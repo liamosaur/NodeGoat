@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage('Semgrep-Scan') {
+        stage('Semgrep Scan') {
             steps {
                 sh '''
                 docker run \
@@ -29,7 +29,7 @@ pipeline {
             }
         }
     
-        stage('Snyk') {
+        stage('Snyk Scan') {
             steps {
                 echo 'Snyk Scanning...'
                 snykSecurity(
@@ -42,15 +42,15 @@ pipeline {
             }
         }
 
-         stage('DEV') {
+         stage('Deploy to DEV') {
             steps {
-                echo 'Building...'
-                echo 'DEV WAS SUCCESSFUL!!!'
+                echo 'Deploying...'
+                echo 'DEPLOY TO DEV WAS SUCCESSFUL!!!'
             }
         }
         
 
-       stage('Dastadrly Scan...') {
+       stage('Dastadrly Scan') {
             steps {
                 echo 'Launch app...'
                     sh 'docker-compose up --detach'
@@ -81,9 +81,10 @@ pipeline {
         }
 
        
-        stage('PROD') {
+        stage('Deploy to PROD') {
             steps {
-                echo 'Deploying....'
+                echo 'Deploying...'
+                echo 'DEPLOY TO DEV WAS SUCCESSFUL!!!'
             }
         }
 
