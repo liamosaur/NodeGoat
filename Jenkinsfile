@@ -27,46 +27,46 @@ pipeline {
                 returntocorp/semgrep semgrep ci --code --junit-xml-output semgrep-report.xml'''
                 sh 'exit 0' //continue build otherwise use delete exit code
             }
-            // post {
-            //     always {
-            //         junit allowEmptyResults: true, testResults: 'semgrep-report.xml', skipPublishingChecks: true
-            //     }
-            // }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'semgrep-report.xml', skipPublishingChecks: true
+                }
+            }
         }
 
-//         // Secret scannning
-//         stage ('Check secrets') {
-//     steps {
-//         sh 'docker run  gesellix/trufflehog --json https://github.com/shubnimkar/CI_CD_Devsecops.git > trufflehog.json'
+        // Secret scannning
+        stage ('Check secrets') {
+    steps {
+        sh 'docker run  gesellix/trufflehog --json https://github.com/shubnimkar/CI_CD_Devsecops.git > trufflehog.json'
 
-//         script {
-//             def jsonReport = readFile('trufflehog.json')
+        script {
+            def jsonReport = readFile('trufflehog.json')
             
-//             def htmlReport = """
-//             <html>
-//             <head>
-//                 <title>Trufflehog Scan Report</title>
-//             </head>
-//             <body>
-//                 <h1>Trufflehog Scan Report</h1>
-//                 <pre>${jsonReport}</pre>
-//             </body>
-//             </html>
-//             """
+            def htmlReport = """
+            <html>
+            <head>
+                <title>Trufflehog Scan Report</title>
+            </head>
+            <body>
+                <h1>Trufflehog Scan Report</h1>
+                <pre>${jsonReport}</pre>
+            </body>
+            </html>
+            """
             
-//             writeFile file: 'scanresults/trufflehog-report.html', text: htmlReport
-//         }
+            writeFile file: 'scanresults/trufflehog-report.html', text: htmlReport
+        }
         
-//         archiveArtifacts artifacts: 'scanresults/trufflehog-report.html', allowEmptyArchive: true
-//     }
-// }
+        archiveArtifacts artifacts: 'scanresults/trufflehog-report.html', allowEmptyArchive: true
+    }
+}
 
-//         stage("OWASP Dependency Check"){
-//             steps{
-//                 dependencyCheck additionalArguments: '--scan ./ ', odcInstallation: 'DP-Check'
-//                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml' 
-//             }
-//         }
+        stage("OWASP Dependency Check"){
+            steps{
+                dependencyCheck additionalArguments: '--scan ./ ', odcInstallation: 'DP-Check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml' 
+            }
+        }
     
     
         stage('Snyk Scan') {
