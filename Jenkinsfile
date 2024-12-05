@@ -61,13 +61,13 @@ pipeline {
             }
         }
 
-        // stage("OWASP Dependency Check"){
-        //     steps{
-        //         dependencyCheck additionalArguments: '--scan ./ ', odcInstallation: 'DP-Check'
-        //         dependencyCheckPublisher pattern: '**/dependency-check-report.xml' 
-        //         sh 'exit 0' 
-        //     }
-        // }
+        stage("OWASP Dependency Check"){
+            steps{
+                dependencyCheck additionalArguments: '--scan ./ ', odcInstallation: 'DP-Check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'  
+            }
+             sh 'exit 0' 
+        }
     
     
         stage('Snyk Scan') {
