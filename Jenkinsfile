@@ -59,7 +59,7 @@ pipeline {
                 
                 archiveArtifacts artifacts: 'scanresults/trufflehog-report.html', allowEmptyArchive: true
             }
-    }
+        }
 
         stage("OWASP Dependency Check"){
             steps{
