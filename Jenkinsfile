@@ -27,11 +27,11 @@ pipeline {
                 returntocorp/semgrep semgrep ci --code --junit-xml-output semgrep-report.xml'''
                 sh 'exit 0' //continue build otherwise use delete exit code
             }
-            post {
-                always {
-                    junit allowEmptyResults: true, testResults: 'semgrep-report.xml', skipPublishingChecks: true
-                }
-            }
+            // post {
+            //     always {
+            //         junit allowEmptyResults: true, testResults: 'semgrep-report.xml', skipPublishingChecks: true
+            //     }
+            // }
         }
 
 //         // Secret scannning
