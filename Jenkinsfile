@@ -35,9 +35,9 @@ pipeline {
         }
 
         // Secret scannning
-        stage ('Check secrets') {
+        stage ('Trufflehog Scan') {
             steps {
-                sh 'docker run  gesellix/trufflehog --json https://github.com/shubnimkar/CI_CD_Devsecops.git > trufflehog.json'
+                sh 'docker run gesellix/trufflehog --json https://github.com/shubnimkar/CI_CD_Devsecops.git > trufflehog.json'
 
                 script {
                     def jsonReport = readFile('trufflehog.json')
@@ -102,6 +102,12 @@ pipeline {
                     -e BURP_REPORT_FILE_PATH=${WORKSPACE}/dastardly-report.xml \
                     public.ecr.aws/portswigger/dastardly:latest \
                     '''
+                    // sh '''
+                    // docker run --network host --user $(id -u) -v ${WORKSPACE}:${WORKSPACE}:rw \
+                    // -e BURP_START_URL=https://juice-shop.herokuapp.com \
+                    // -e BURP_REPORT_FILE_PATH=${WORKSPACE}/dastardly-report.xml \
+                    // public.ecr.aws/portswigger/dastardly:latest \
+                    // '''
                     sh 'exit 0'
                 
                 echo 'Dastardly Scanning Completed.'
