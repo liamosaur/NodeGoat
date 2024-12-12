@@ -42,7 +42,7 @@ pipeline {
                 script {
                     def jsonReport = readFile('trufflehog.json')
                     
-                    def htmlReport = """
+                    def htmlReport = """ 
                     <html>
                     <head>
                         <title>Trufflehog Scan Report</title>
