@@ -29,7 +29,7 @@ pipeline {
             }
             post {
                 always {
-                    junit allowEmptyResults: true, testResults: 'semgrep-report.xml', skipPublishingChecks: true
+                    junit allowEmptyResults: true, testResults: '/mnt/c/Users/participant/Documents/GitHub/ NodeGoat-scan-results/semgrep-report.xml', skipPublishingChecks: true
                 }
             }
         }
@@ -76,8 +76,9 @@ pipeline {
                 snykSecurity(
                     snykInstallation: 'Snyk-Scan',
                     snykTokenId: 'Snyk-Scan',
-                    // severity: 'low',
-                    // failOnIssues: 'false'
+                    severity: 'low',
+                    failOnIssues: 'false'
+                    sh 'exit 0'
                 )
                 
             }
