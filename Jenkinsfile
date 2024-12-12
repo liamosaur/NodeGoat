@@ -57,6 +57,11 @@ pipeline {
                 
                 archiveArtifacts artifacts: 'scanresults/trufflehog-report.html', allowEmptyArchive: true
             }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'trufflehog-report.xml', skipPublishingChecks: true
+                }
+            }
         }    
     
         stage('Snyk Scan') {
