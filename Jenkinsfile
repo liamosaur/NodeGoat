@@ -78,7 +78,7 @@ pipeline {
                     snykTokenId: 'Snyk-Scan',
                     severity: 'low',
                     failOnIssues: 'false'
-                    sh 'exit 0' 
+                    sh 'exit 0'
                 )
                 
             }
