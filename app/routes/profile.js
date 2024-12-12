@@ -1,9 +1,5 @@
 const ProfileDAO = require("../data/profile-dao").ProfileDAO;
 const ESAPI = require("node-esapi");
-
-const dummyApiKey = YbrmQap4hYDU0D2vLIzAOwqHhkHD3U6acNgQgZ4zwgoMl1EPDOYN2JLcPBp9jtrhOTttIuSn2uqbNaes5dmDOLFvm37tLhhzG5iTJVRrBs3ErQe6TwFxookDqcnrsAQ5
-
-
 const {
     environmentalScripts
 } = require("../../config/config");

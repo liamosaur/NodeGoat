@@ -76,8 +76,8 @@ pipeline {
                 snykSecurity(
                     snykInstallation: 'Snyk-Scan',
                     snykTokenId: 'Snyk-Scan',
-                    // severity: 'low',
-                    // failOnIssues: 'false'
+                    severity: 'low',
+                    failOnIssues: 'false'
                 )
                 
             }
